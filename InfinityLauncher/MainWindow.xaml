@@ -1,0 +1,37 @@
+﻿<controls:MetroWindow x:Name="InfinityLauncher" x:Class="InfinityLauncher.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:InfinityLauncher"
+        xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        mc:Ignorable="d"
+        Title="Infinity Launcher" Height="512" Width="802"
+        Icon="images/is-icon.ico" WindowStartupLocation="CenterScreen" TitleCaps="False" IsMaxRestoreButtonEnabled="False" ShowTitleBar="False">
+    <Grid x:Name="Main" Background="#FF2B2D2E">
+        <Grid x:Name="MainTitle" HorizontalAlignment="Left" Height="80" VerticalAlignment="Top" Width="800" Background="#FF1B1F20">
+            <TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="80" Margin="480,0,0,0" VerticalAlignment="Top" Width="320">
+                <TabItem Header="首页" Margin="10,30,-10,-32">
+                    <Frame Source="\pages\MainBody.xaml" Margin="-485,40,-1,-297" HorizontalAlignment="Left" Width="800" VerticalAlignment="Top" Height="360"/>
+                </TabItem>
+                <TabItem Header="模组包" Margin="50,30,-43,-32">
+                    <Frame Source="\pages\Modpacks.xaml" Margin="-485,40,-1,-297" HorizontalAlignment="Left" Width="800" VerticalAlignment="Top" Height="360"/>
+                </TabItem>
+                <TabItem Header="设置" Margin="88,30,-88,-32">
+                    <Frame Source="\pages\Options.xaml" Margin="-485,40,-1,-297" HorizontalAlignment="Left" Width="800" VerticalAlignment="Top" Height="360"/>
+                </TabItem>
+            </TabControl>
+        </Grid>
+        <Grid x:Name="MainBottom" HorizontalAlignment="Left" Height="105" Margin="0,407,0,0" VerticalAlignment="Top" Width="800" Background="#FF1B1F20">
+            <Image x:Name="IGravatar" HorizontalAlignment="Left" Height="85" VerticalAlignment="Top" Width="85" Margin="10,10,0,0"/>
+            <Label x:Name="LPlayerName" HorizontalAlignment="Left" Height="40" Margin="100,0,0,0" VerticalAlignment="Top" Width="145" Content="Name" Foreground="White" FontSize="21.333"/>
+            <Label x:Name="LPlayerEmail" Content="E-mail" HorizontalAlignment="Left" Height="30" Margin="100,40,0,0" VerticalAlignment="Top" Width="145" Foreground="White" RenderTransformOrigin="-0.355,0.75" FontSize="16"/>
+            <Button x:Name="BPlayerOptions" Content="账户设置" HorizontalAlignment="Left" Height="20" Margin="100,70,0,0" VerticalAlignment="Top" Width="145" FontSize="10.667"/>
+            <Button x:Name="BStartGame" Content="启动游戏" HorizontalAlignment="Left" Height="25" Margin="640,70,0,0" VerticalAlignment="Top" Width="150" Click="BStartGame_Click"/>
+            <ComboBox x:Name="CBVersion" HorizontalAlignment="Left" Height="25" Margin="400,70,0,0" VerticalAlignment="Top" Width="235"/>
+            <Label x:Name="LHello" Content="准备好启动:" HorizontalAlignment="Left" Height="35" Margin="250,68,0,0" VerticalAlignment="Top" Width="150" Foreground="White" FontSize="14.667"/>
+            <Label x:Name="LAnnouncement" Content="公告：" HorizontalAlignment="Left" Height="30" Margin="320,10,0,0" VerticalAlignment="Top" Width="470" Foreground="White" FontSize="16"/>
+            <ProgressBar HorizontalAlignment="Left" Height="5" Margin="250,53,0,0" VerticalAlignment="Top" Width="540"/>
+        </Grid>
+    </Grid>
+</controls:MetroWindow>
