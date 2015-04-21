@@ -37,7 +37,7 @@ namespace InfinityLauncher
             {
 
             }
-            if ((DateTime.Now.Hour <= 12) && (DateTime.Now.Hour >=6))
+            if ((DateTime.Now.Hour <= 12) && (DateTime.Now.Hour >= 6))
             {
                 this.LHello.Content = "早上好，" + this.LHello.Content;
             }

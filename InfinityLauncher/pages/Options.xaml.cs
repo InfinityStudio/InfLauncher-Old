@@ -26,7 +26,7 @@ namespace InfinityLauncher.pages
             CBStartMode.SelectedIndex = Config.BStartMode ? 0 : 1;
             this.TBPassword.Text = Config.BStartMode ? Config.SPlayerPassword : null;
             this.TBPlayerName.Text = Config.SPlayerName;
-            this.SMemory.Maximum = GetTotalMemory()/1000/1000;
+            this.SMemory.Maximum = GetTotalMemory() / 1000 / 1000;
             this.SMemory.Value = 1024;
             this.TBPlayerName.TextChanged += TBPlayerName_TextChanged;
         }
@@ -47,7 +47,8 @@ namespace InfinityLauncher.pages
             if (Config.BStartMode)
             {
                 this.Resources["PasswordBoxVisibility"] = Visibility.Collapsed;
-            }else
+            }
+            else
             {
                 this.Resources["PasswordBoxVisibility"] = Visibility.Visible;
             }
