@@ -12,28 +12,36 @@ namespace InfinityLauncher
         public static String SPlayerName = "Name";
         public static String SPlayerEmail = "E-mail";
         public static String SPlayerPassword;
-        public static String SJavaPath()
+        public static int IMemory;
+        public static String SJavaPath(String NewJavaPath)
         {
-            try
+            if(NewJavaPath == null)
             {
-                RegistryKey key = Registry.LocalMachine.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Uninstall", false);
-                foreach (string keyName in key.GetSubKeyNames())
+                try
                 {
-                    RegistryKey key2 = key.OpenSubKey(keyName, false);
-                    if (key2 != null)
+                    RegistryKey key = Registry.LocalMachine.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Uninstall", false);
+                    foreach (string keyName in key.GetSubKeyNames())
                     {
-                        string softwareName = key2.GetValue("Contact", "").ToString();
-                        if (softwareName == "http://java.com")
+                        RegistryKey key2 = key.OpenSubKey(keyName, false);
+                        if (key2 != null)
                         {
-                            return key2.GetValue("InstallLocation", "").ToString() + @"bin\javaw.exe";
+                            string softwareName = key2.GetValue("Contact", "").ToString();
+                            if (softwareName == "http://java.com")
+                            {
+                                return key2.GetValue("InstallLocation", "").ToString() + @"bin\javaw.exe";
+                            }
                         }
                     }
+                    return string.Empty;
                 }
-                return string.Empty;
+                catch
+                {
+                    return string.Empty;
+                }
             }
-            catch
+            else
             {
-                return string.Empty;
+                return NewJavaPath;
             }
         }
         public static Boolean BStartMode = false;
