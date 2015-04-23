@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using MahApps.Metro.Controls;
 using System.Net;
 using System.Drawing;
+using System.IO;
 
 namespace InfinityLauncher
 {
@@ -25,11 +26,35 @@ namespace InfinityLauncher
         public MainWindow()
         {
             InitializeComponent();
-            this.LPlayerName.Content = Config.SPlayerName;
+            //检测文件夹
+            String NowPath = AppDomain.CurrentDomain.BaseDirectory;
+            try
+            {
+                Directory.CreateDirectory(NowPath + @"\user");
+                Directory.CreateDirectory(NowPath + @"\user\DemoUser");
+                Directory.CreateDirectory(NowPath + @"\user\DemoUser\launcher");
+                Directory.CreateDirectory(NowPath + @"\user\DemoUser\modpacks");
+                Directory.CreateDirectory(NowPath + @"\client");
+            }
+            catch (Exception)
+            {
+
+            }
+            //读取一些配置文件
+            if(Config.FConfig.IniReadValue("User", "StartMode") != "")
+            {
+                Config.BStartMode = Boolean.Parse(Config.FConfig.IniReadValue("User", "StartMode"));
+            }
+            if(Config.FConfig.IniReadValue("Path", "Memory") != "")
+            {
+                Config.IMemory = int.Parse(Config.FConfig.IniReadValue("Path", "Memory"));
+            }
+            //初始化
+            this.LPlayerName.Content = Config.SPlayerName(null);
             this.LPlayerEmail.Content = Config.SPlayerEmail;
             try
             {
-                System.Drawing.Bitmap bmp = (Bitmap)System.Drawing.Image.FromStream(WebRequest.Create("http://mcuuid.net/face/" + Config.SPlayerName + ".png").GetResponse().GetResponseStream());
+                System.Drawing.Bitmap bmp = (Bitmap)System.Drawing.Image.FromStream(WebRequest.Create("http://mcuuid.net/face/" + Config.SPlayerName(null) + ".png").GetResponse().GetResponseStream());
                 IntPtr hBitmap = bmp.GetHbitmap();
                 IGravatar.Source = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(hBitmap, IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
             }

@@ -27,12 +27,13 @@ namespace InfinityLauncher.pages
             //初始化
             CBStartMode.SelectedIndex = Config.BStartMode ? 0 : 1;
             this.TBJavaPath.Text = Config.SJavaPath(null);
-            this.TBPassword.Text = Config.BStartMode ? Config.SPlayerPassword : null;
-            this.TBPlayerName.Text = Config.SPlayerName;
+            this.TBPassword.Text = Config.BStartMode ? Config.SPlayerPassword(null) : null;
+            this.TBPlayerName.Text = Config.SPlayerName(null);
             this.SMemory.Maximum = GetTotalMemory() / 1000 / 1000;
-            this.SMemory.Value = 1024;
+            this.SMemory.Value = Config.IMemory;
             //实时更新
             this.TBPlayerName.TextChanged += TBPlayerName_TextChanged;
+            this.TBPassword.TextChanged += TBPassword_TextChanged;
             this.TBJavaPath.PreviewMouseDown += TBJavaPath_PreviewMouseDown;
             this.TBStartFunction.TextChanged += TBStartFunction_TextChanged;
             this.SMemory.ValueChanged += SMemory_ValueChanged;
@@ -42,9 +43,15 @@ namespace InfinityLauncher.pages
             this.TSExit.IsCheckedChanged += TSExit_IsCheckedChanged;
         }
 
+        private void TBPassword_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Config.SPlayerPassword(this.TBPassword.Text);
+        }
+
         private void SMemory_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             Config.IMemory = int.Parse(this.TBLMemory.Text);
+            Config.FConfig.IniWriteValue("Path", "Memory", this.TBLMemory.Text);
         }
 
         private void TSExit_IsCheckedChanged(object sender, EventArgs e)
@@ -87,7 +94,7 @@ namespace InfinityLauncher.pages
 
         private void TBPlayerName_TextChanged(object sender, TextChangedEventArgs e)
         {
-            Config.SPlayerName = TBPlayerName.Text;
+            Config.SPlayerName(TBPlayerName.Text);
         }
 
         public static UInt64 GetTotalMemory()
@@ -97,10 +104,12 @@ namespace InfinityLauncher.pages
 
         private void CBStartMode_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            Config.FConfig.IniWriteValue("User", "StartMode", Config.BStartMode.ToString());
             Config.BStartMode = CBStartMode.SelectedIndex == 1;
             if (Config.BStartMode)
             {
                 this.Resources["PasswordBoxVisibility"] = Visibility.Collapsed;
+                Config.SPlayerPassword("");
             }
             else
             {
