@@ -9,6 +9,9 @@ namespace InfinityLauncher
 {
     class Config
     {
+        public static String LauncherPath= System.Environment.CurrentDirectory + @"\user\DemoUser\launcher\InfinityLauncher.ini";
+        public INIClass FConfig = new INIClass(LauncherPath);
+
         public static String SPlayerName = "Name";
         public static String SPlayerEmail = "E-mail";
         public static String SPlayerPassword;
