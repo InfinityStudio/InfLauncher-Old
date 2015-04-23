@@ -133,7 +133,7 @@
 		/// <param name="versionLocator">Version定位器，默认为 JVersionLoacator</param>
 		public LauncherCoreCreationOption(string gameRootPath = null, string javaPath = null, IVersionLocator versionLocator = null)
 		{
-			GameRootPath = new DirectoryInfo(gameRootPath ?? ".minecraft").FullName;
+			GameRootPath = new DirectoryInfo(gameRootPath ?? @"client\.minecraft").FullName;
 			JavaPath = javaPath ?? SystemTools.FindJava().FirstOrDefault();
 			VersionLocator = versionLocator ?? new JVersionLocator();
 			if (!Directory.Exists(GameRootPath))

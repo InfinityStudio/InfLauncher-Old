@@ -15,6 +15,9 @@ using MahApps.Metro.Controls;
 using System.Net;
 using System.Drawing;
 using System.IO;
+using KMCCC.Authentication;
+using KMCCC.Launcher;
+using Version = KMCCC.Launcher.Version;
 
 namespace InfinityLauncher
 {
@@ -75,7 +78,30 @@ namespace InfinityLauncher
 
         private void BStartGame_Click(object sender, RoutedEventArgs e)
         {
-
+            if (Config.BStartMode)
+            {
+                var result = App.Core.Launch(new LaunchOptions
+                {
+                    Version = App.Core.GetVersion("1.8"),
+                    Authenticator = new YggdrasilLogin(Config.SPlayerName(null), Config.SPlayerPassword(null), true),
+                    MaxMemory = Config.IMemory,
+                    MinMemory = Config.IMemory,
+                    Mode = LaunchMode.MCLauncher,
+                    Size = new WindowSize { Height = 768, Width = 1280 }
+                }, (Action<MinecraftLaunchArguments>)(x => { }));
+            }
+            else
+            {
+                var result = App.Core.Launch(new LaunchOptions
+                {
+                    Version = App.Core.GetVersion("1.8"),
+                    Authenticator = new OfflineAuthenticator(Config.SPlayerName(null)),
+                    MaxMemory = Config.IMemory,
+                    MinMemory = Config.IMemory,
+                    Mode = LaunchMode.MCLauncher,
+                    Size = new WindowSize { Height = 768, Width = 1280 }
+                }, (Action<MinecraftLaunchArguments>)(x => { }));
+            }
         }
     }
 }
