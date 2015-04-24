@@ -27,7 +27,7 @@ namespace InfinityLauncher
                 return NewPlayerName;
             }
         }
-        public static String SPlayerEmail = "E-mail";
+        public static String SPlayerEmail;
         public static String SPlayerPassword(String NewPass)
         {
             if (NewPass == null)

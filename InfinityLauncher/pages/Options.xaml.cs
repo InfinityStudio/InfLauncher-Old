@@ -31,6 +31,10 @@ namespace InfinityLauncher.pages
             this.TBPlayerName.Text = Config.SPlayerName(null);
             this.SMemory.Maximum = GetTotalMemory() / 1000 / 1000;
             this.SMemory.Value = Config.IMemory;
+            this.TSUpdateLauncher.IsChecked = Config.BUpdateLauncher;
+            this.TSUpdateModpacks.IsChecked = Config.BUpdateModpacks;
+            this.TSDebug.IsChecked = Config.BDebug;
+            this.TSExit.IsChecked = Config.BExit;
             //实时更新
             this.TBPlayerName.TextChanged += TBPlayerName_TextChanged;
             this.TBPassword.TextChanged += TBPassword_TextChanged;
@@ -56,22 +60,26 @@ namespace InfinityLauncher.pages
 
         private void TSExit_IsCheckedChanged(object sender, EventArgs e)
         {
-
+            Config.BExit = (bool)this.TSExit.IsChecked;
+            Config.FConfig.IniWriteValue("Launch", "Exit", Config.BExit.ToString());
         }
 
         private void TSDebug_IsCheckedChanged(object sender, EventArgs e)
         {
-
+            Config.BDebug = (bool)this.TSDebug.IsChecked;
+            Config.FConfig.IniWriteValue("Launch", "Debug", Config.BDebug.ToString());
         }
 
         private void TSUpdateModpacks_IsCheckedChanged(object sender, EventArgs e)
         {
-
+            Config.BUpdateModpacks = (bool)this.TSUpdateModpacks.IsChecked;
+            Config.FConfig.IniWriteValue("Launch", "UpdateModpacks", Config.BUpdateModpacks.ToString());
         }
 
         private void TSUpdateLauncher_IsCheckedChanged(object sender, EventArgs e)
         {
-
+            Config.BUpdateLauncher = (bool)this.TSUpdateLauncher.IsChecked;
+            Config.FConfig.IniWriteValue("Launch", "UpdateLauncher", Config.BUpdateLauncher.ToString());
         }
 
         private void TBStartFunction_TextChanged(object sender, TextChangedEventArgs e)

@@ -52,6 +52,22 @@ namespace InfinityLauncher
             {
                 Config.IMemory = int.Parse(Config.FConfig.IniReadValue("Path", "Memory"));
             }
+            if(Config.FConfig.IniReadValue("Launch", "UpdateLauncher") != "")
+            {
+                Config.BUpdateLauncher = Boolean.Parse(Config.FConfig.IniReadValue("Launch", "UpdateLauncher"));
+            }
+            if (Config.FConfig.IniReadValue("Launch", "UpdateModpacks") != "")
+            {
+                Config.BUpdateModpacks = Boolean.Parse(Config.FConfig.IniReadValue("Launch", "UpdateModpacks"));
+            }
+            if (Config.FConfig.IniReadValue("Launch", "Debug") != "")
+            {
+                Config.BDebug = Boolean.Parse(Config.FConfig.IniReadValue("Launch", "Debug"));
+            }
+            if (Config.FConfig.IniReadValue("Launch", "Exit") != "")
+            {
+                Config.BExit = Boolean.Parse(Config.FConfig.IniReadValue("Launch", "Exit"));
+            }
             //初始化
             this.LPlayerName.Content = Config.SPlayerName(null);
             this.LPlayerEmail.Content = Config.SPlayerEmail;
@@ -78,6 +94,8 @@ namespace InfinityLauncher
 
         private void BStartGame_Click(object sender, RoutedEventArgs e)
         {
+            //复制文件（未完成）
+            //启动游戏（未完成）
             if (Config.BStartMode)
             {
                 var result = App.Core.Launch(new LaunchOptions
