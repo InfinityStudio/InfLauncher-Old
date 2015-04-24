@@ -13,6 +13,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.VisualBasic.Devices;
 using Microsoft.Win32;
+using MahApps.Metro.Controls;
 
 namespace InfinityLauncher.pages
 {
@@ -45,6 +46,14 @@ namespace InfinityLauncher.pages
             this.TSUpdateModpacks.IsCheckedChanged += TSUpdateModpacks_IsCheckedChanged;
             this.TSDebug.IsCheckedChanged += TSDebug_IsCheckedChanged;
             this.TSExit.IsCheckedChanged += TSExit_IsCheckedChanged;
+        }
+
+        public static event EventHandler CPN;
+
+        private void TBPlayerName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Config.SPlayerName(this.TBPlayerName.Text);
+            if (CPN != null) CPN(sender, e);
         }
 
         private void TBPassword_TextChanged(object sender, TextChangedEventArgs e)
@@ -98,11 +107,6 @@ namespace InfinityLauncher.pages
             ofd.ShowDialog();
             this.TBJavaPath.Text = ofd.FileName;
             Config.SJavaPath(ofd.FileName);
-        }
-
-        private void TBPlayerName_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            Config.SPlayerName(TBPlayerName.Text);
         }
 
         public static UInt64 GetTotalMemory()

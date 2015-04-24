@@ -18,6 +18,7 @@ using System.IO;
 using KMCCC.Authentication;
 using KMCCC.Launcher;
 using Version = KMCCC.Launcher.Version;
+using InfinityLauncher.pages;
 
 namespace InfinityLauncher
 {
@@ -29,6 +30,19 @@ namespace InfinityLauncher
         public MainWindow()
         {
             InitializeComponent();
+            Options.CPN += (us, ue) =>{
+                this.LPlayerName.Content = Config.SPlayerName(null);
+                try
+                {
+                    System.Drawing.Bitmap bmp = (Bitmap)System.Drawing.Image.FromStream(WebRequest.Create("http://mcuuid.net/face/" + Config.SPlayerName(null) + ".png").GetResponse().GetResponseStream());
+                    IntPtr hBitmap = bmp.GetHbitmap();
+                    IGravatar.Source = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(hBitmap, IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+                }
+                catch (WebException)
+                {
+
+                }
+            };
             //检测文件夹
             String NowPath = AppDomain.CurrentDomain.BaseDirectory;
             try
