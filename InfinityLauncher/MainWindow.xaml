@@ -25,7 +25,7 @@
         <Grid x:Name="MainBottom" HorizontalAlignment="Left" Height="105" Margin="0,407,0,0" VerticalAlignment="Top" Width="800" Background="#FF1B1F20">
             <Image x:Name="IGravatar" HorizontalAlignment="Left" Height="85" VerticalAlignment="Top" Width="85" Margin="10,10,0,0"/>
             <Label x:Name="LPlayerName" x:FieldModifier="public" HorizontalAlignment="Left" Height="40" Margin="100,0,0,0" VerticalAlignment="Top" Width="145" Content="Name" Foreground="White" FontSize="21.333"/>
-            <Label x:Name="LPlayerEmail" x:FieldModifier="public" Content="E-mail" HorizontalAlignment="Left" Height="30" Margin="100,40,0,0" VerticalAlignment="Top" Width="145" Foreground="White" RenderTransformOrigin="-0.355,0.75" FontSize="16"/>
+            <Label x:Name="LPlayerEmail" x:FieldModifier="public" Content="E-mail" HorizontalAlignment="Left" Height="30" Margin="100,40,0,0" VerticalAlignment="Top" Width="145" Foreground="White" RenderTransformOrigin="-0.355,0.75" FontSize="10.667"/>
             <Button x:Name="BPlayerOptions" Content="账户设置" HorizontalAlignment="Left" Height="20" Margin="100,70,0,0" VerticalAlignment="Top" Width="145" FontSize="10.667"/>
             <Button x:Name="BStartGame" Content="启动游戏" HorizontalAlignment="Left" Height="25" Margin="640,70,0,0" VerticalAlignment="Top" Width="150" Click="BStartGame_Click"/>
             <ComboBox x:Name="CBVersion" HorizontalAlignment="Left" Height="25" Margin="400,70,0,0" VerticalAlignment="Top" Width="235"/>

@@ -30,18 +30,27 @@ namespace InfinityLauncher
         public MainWindow()
         {
             InitializeComponent();
-            Options.CPN += (us, ue) =>{
+            Options.CPN += (us, ue) =>
+            {
                 this.LPlayerName.Content = Config.SPlayerName(null);
-                try
+                if (!Config.BStartMode)
                 {
-                    System.Drawing.Bitmap bmp = (Bitmap)System.Drawing.Image.FromStream(WebRequest.Create("http://mcuuid.net/face/" + Config.SPlayerName(null) + ".png").GetResponse().GetResponseStream());
-                    IntPtr hBitmap = bmp.GetHbitmap();
-                    IGravatar.Source = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(hBitmap, IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
-                }
-                catch (WebException)
-                {
+                    this.LPlayerName.Content = "";
+                    /*try
+                    {
+                        System.Drawing.Bitmap bmp = (Bitmap)System.Drawing.Image.FromStream(WebRequest.Create("http://mcuuid.net/face/" + Config.SPlayerName(null) + ".png").GetResponse().GetResponseStream());
+                        IntPtr hBitmap = bmp.GetHbitmap();
+                        IGravatar.Source = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(hBitmap, IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+                    }
+                    catch (WebException)
+                    {
 
+                    }*/
                 }
+            };
+            Options.CPE += (us, ue) =>
+            {
+                this.LPlayerEmail.Content = Config.SPlayerEmail;
             };
             //检测文件夹
             String NowPath = AppDomain.CurrentDomain.BaseDirectory;
@@ -84,7 +93,7 @@ namespace InfinityLauncher
             }
             //初始化
             this.LPlayerName.Content = Config.SPlayerName(null);
-            this.LPlayerEmail.Content = Config.SPlayerEmail;
+            if (Config.BStartMode) this.LPlayerEmail.Content = Config.SPlayerName(null); else this.LPlayerEmail.Content = "";
             try
             {
                 System.Drawing.Bitmap bmp = (Bitmap)System.Drawing.Image.FromStream(WebRequest.Create("http://mcuuid.net/face/" + Config.SPlayerName(null) + ".png").GetResponse().GetResponseStream());
@@ -110,7 +119,7 @@ namespace InfinityLauncher
         {
             //复制文件（未完成）
             //启动游戏（未完成）
-            if (Config.BStartMode)
+            if (!Config.BStartMode)
             {
                 var result = App.Core.Launch(new LaunchOptions
                 {

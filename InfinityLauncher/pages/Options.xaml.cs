@@ -49,11 +49,17 @@ namespace InfinityLauncher.pages
         }
 
         public static event EventHandler CPN;
+        public static event EventHandler CPE;
 
         private void TBPlayerName_TextChanged(object sender, TextChangedEventArgs e)
         {
             Config.SPlayerName(this.TBPlayerName.Text);
-            if (CPN != null) CPN(sender, e);
+            if ((CPN != null) && (Config.BStartMode)) CPN(sender, e);
+            if ((CPE != null) && (!Config.BStartMode))
+            {
+                Config.SPlayerEmail = Config.SPlayerName(null);
+                CPE(sender, e);
+            }
         }
 
         private void TBPassword_TextChanged(object sender, TextChangedEventArgs e)
@@ -122,10 +128,14 @@ namespace InfinityLauncher.pages
             {
                 this.Resources["PasswordBoxVisibility"] = Visibility.Collapsed;
                 Config.SPlayerPassword("");
+                Config.SPlayerEmail = "";
+                if (CPE != null) CPE(sender, e);
+                if (CPN != null) CPN(sender, e);
             }
             else
             {
                 this.Resources["PasswordBoxVisibility"] = Visibility.Visible;
+                if (CPN != null) CPN(sender, e);
             }
         }
     }
