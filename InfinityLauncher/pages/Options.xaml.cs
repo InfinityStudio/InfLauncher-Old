@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using Microsoft.VisualBasic.Devices;
 using Microsoft.Win32;
 using MahApps.Metro.Controls;
+using KMCCC.Authentication;
 
 namespace InfinityLauncher.pages
 {
@@ -46,10 +47,64 @@ namespace InfinityLauncher.pages
             this.TSUpdateModpacks.IsCheckedChanged += TSUpdateModpacks_IsCheckedChanged;
             this.TSDebug.IsCheckedChanged += TSDebug_IsCheckedChanged;
             this.TSExit.IsCheckedChanged += TSExit_IsCheckedChanged;
+            this.BJoin.Click += BJoin_Click;
+            //自动登录
+            if (!Config.BStartMode)
+            {
+                Authenticator = new YggdrasilLogin(Config.SPlayerName(null), Config.SPlayerPassword(null), true);
+                var Authenticatorif = Authenticator.Do();
+                if (Authenticatorif.Error != "验证错误")
+                {
+                    Config.SDisplayName = Authenticatorif.DisplayName;
+                    this.TBPassword.Visibility = Visibility.Collapsed;
+                    this.label9.Visibility = Visibility.Collapsed;
+                    this.BJoin.Content = "登出";
+                    if (CPN != null) CPN(null, null);
+                    Config.BOnline = true;
+                }
+                else
+                {
+                    MessageBox.Show("验证错误！请检查你的网络或者用户名！");
+                }
+            }
         }
 
         public static event EventHandler CPN;
         public static event EventHandler CPE;
+
+        public static IAuthenticator Authenticator = new YggdrasilLogin(Config.SPlayerName(null), Config.SPlayerPassword(null), true);
+
+        private void BJoin_Click(object sender, RoutedEventArgs e)
+        {
+            if (!Config.BOnline)
+            {
+                Authenticator= new YggdrasilLogin(Config.SPlayerName(null), Config.SPlayerPassword(null), true);
+                var Authenticatorif = Authenticator.Do();
+                if (Authenticatorif.Error != "验证错误")
+                {
+                    Config.SDisplayName = Authenticatorif.DisplayName;
+                    this.TBPassword.Visibility = Visibility.Collapsed;
+                    this.label9.Visibility = Visibility.Collapsed;
+                    this.BJoin.Content = "登出";
+                    if (CPN != null) CPN(sender, e);
+                    Config.BOnline = true;
+                }
+                else
+                {
+                    MessageBox.Show("验证错误！请检查你的网络或者用户名！");
+                }
+            }
+            else
+            {
+                this.TBPassword.Visibility = Visibility.Visible;
+                this.TBPassword.Text = Config.SPlayerPassword(null);
+                this.label9.Visibility = Visibility.Visible;
+                Config.SDisplayName = "";
+                this.BJoin.Content = "登入";
+                if (CPN != null) CPN(sender, e);
+                Config.BOnline = false;
+            }
+        }
 
         private void TBPlayerName_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -136,6 +191,7 @@ namespace InfinityLauncher.pages
             {
                 this.Resources["PasswordBoxVisibility"] = Visibility.Visible;
                 if (CPN != null) CPN(sender, e);
+                this.TBPassword.Text = Config.SPlayerPassword(null);
             }
         }
     }

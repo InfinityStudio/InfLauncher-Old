@@ -35,17 +35,17 @@ namespace InfinityLauncher
                 this.LPlayerName.Content = Config.SPlayerName(null);
                 if (!Config.BStartMode)
                 {
-                    this.LPlayerName.Content = "";
-                    /*try
+                    this.LPlayerName.Content = Config.SDisplayName;
+                    try
                     {
-                        System.Drawing.Bitmap bmp = (Bitmap)System.Drawing.Image.FromStream(WebRequest.Create("http://mcuuid.net/face/" + Config.SPlayerName(null) + ".png").GetResponse().GetResponseStream());
+                        System.Drawing.Bitmap bmp = (Bitmap)System.Drawing.Image.FromStream(WebRequest.Create("http://mcuuid.net/face/" + Config.SDisplayName + ".png").GetResponse().GetResponseStream());
                         IntPtr hBitmap = bmp.GetHbitmap();
                         IGravatar.Source = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(hBitmap, IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
                     }
                     catch (WebException)
                     {
 
-                    }*/
+                    }
                 }
             };
             Options.CPE += (us, ue) =>
@@ -124,7 +124,7 @@ namespace InfinityLauncher
                 var result = App.Core.Launch(new LaunchOptions
                 {
                     Version = App.Core.GetVersion("1.8"),
-                    Authenticator = new YggdrasilLogin(Config.SPlayerName(null), Config.SPlayerPassword(null), true),
+                    Authenticator = Options.Authenticator,
                     MaxMemory = Config.IMemory,
                     MinMemory = Config.IMemory,
                     Mode = LaunchMode.MCLauncher,

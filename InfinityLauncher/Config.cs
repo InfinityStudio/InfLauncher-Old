@@ -28,6 +28,7 @@ namespace InfinityLauncher
             }
         }
         public static String SPlayerEmail;
+        public static String SDisplayName;
         public static String SPlayerPassword(String NewPass)
         {
             if (NewPass == null)
@@ -85,5 +86,6 @@ namespace InfinityLauncher
         public static Boolean BUpdateModpacks = true;
         public static Boolean BDebug = false;
         public static Boolean BExit = true;
+        public static Boolean BOnline = false;
     }
 }
