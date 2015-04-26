@@ -52,6 +52,7 @@ namespace InfinityLauncher
             {
                 this.LPlayerEmail.Content = Config.SPlayerEmail;
             };
+
             //检测文件夹
             String NowPath = AppDomain.CurrentDomain.BaseDirectory;
             try
@@ -66,8 +67,18 @@ namespace InfinityLauncher
             {
 
             }
+
+            //遍历文件夹
+            DirectoryInfo theFolder = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + @"\user\DemoUser\modpacks\");
+            DirectoryInfo[] dirInfo = theFolder.GetDirectories();
+            foreach (DirectoryInfo NextFolder in dirInfo)
+            {
+                this.CBVersion.Items.Add(NextFolder.Name);
+                FileInfo[] fileInfo = NextFolder.GetFiles();
+            }
+
             //读取一些配置文件
-            if(Config.FConfig.IniReadValue("User", "StartMode") != "")
+            if (Config.FConfig.IniReadValue("User", "StartMode") != "")
             {
                 Config.BStartMode = Boolean.Parse(Config.FConfig.IniReadValue("User", "StartMode"));
             }
@@ -91,6 +102,7 @@ namespace InfinityLauncher
             {
                 Config.BExit = Boolean.Parse(Config.FConfig.IniReadValue("Launch", "Exit"));
             }
+
             //初始化
             this.LPlayerName.Content = Config.SPlayerName(null);
             if (Config.BStartMode) this.LPlayerEmail.Content = Config.SPlayerName(null); else this.LPlayerEmail.Content = "";

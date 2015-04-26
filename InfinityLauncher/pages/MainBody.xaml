@@ -7,5 +7,7 @@
       mc:Ignorable="d"
       Title="MainBody" Height="327" Width="800">
 
-    <Grid/>
+    <Grid>
+        <WebBrowser x:Name="WBMain" HorizontalAlignment="Left" Height="327" VerticalAlignment="Top" Width="800" Source="{x:Null}"/>
+    </Grid>
 </Page>

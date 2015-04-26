@@ -22,6 +22,7 @@ namespace InfinityLauncher.pages
         public MainBody()
         {
             InitializeComponent();
+            
         }
     }
 }
