@@ -81,6 +81,7 @@ namespace InfinityLauncher
                 return NewJavaPath;
             }
         }
+        public static String SSelectVersion;
         public static Boolean BStartMode = false;
         public static Boolean BUpdateLauncher = true;
         public static Boolean BUpdateModpacks = true;

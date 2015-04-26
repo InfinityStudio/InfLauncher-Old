@@ -61,7 +61,6 @@ namespace InfinityLauncher
                 Directory.CreateDirectory(NowPath + @"\user\DemoUser");
                 Directory.CreateDirectory(NowPath + @"\user\DemoUser\launcher");
                 Directory.CreateDirectory(NowPath + @"\user\DemoUser\modpacks");
-                Directory.CreateDirectory(NowPath + @"\client");
             }
             catch (Exception)
             {
@@ -131,11 +130,17 @@ namespace InfinityLauncher
         {
             //复制文件（未完成）
             //启动游戏（未完成）
+            LauncherCore Core = LauncherCore.Create(
+            new LauncherCoreCreationOption(
+                gameRootPath: "client" + Config.SSelectVersion + @"\.minecraft",
+                javaPath: Config.SJavaPath(null),
+                versionLocator: null
+            ));
             if (!Config.BStartMode)
             {
-                var result = App.Core.Launch(new LaunchOptions
+                var result = Core.Launch(new LaunchOptions
                 {
-                    Version = App.Core.GetVersion("1.8"),
+                    Version = Core.GetVersion("1.8"),
                     Authenticator = Options.Authenticator,
                     MaxMemory = Config.IMemory,
                     MinMemory = Config.IMemory,
@@ -145,9 +150,9 @@ namespace InfinityLauncher
             }
             else
             {
-                var result = App.Core.Launch(new LaunchOptions
+                var result = Core.Launch(new LaunchOptions
                 {
-                    Version = App.Core.GetVersion("1.8"),
+                    Version = Core.GetVersion("1.8"),
                     Authenticator = new OfflineAuthenticator(Config.SPlayerName(null)),
                     MaxMemory = Config.IMemory,
                     MinMemory = Config.IMemory,

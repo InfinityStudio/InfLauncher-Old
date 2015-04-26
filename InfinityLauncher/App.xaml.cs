@@ -4,7 +4,6 @@ using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Windows;
-using KMCCC.Launcher;
 
 namespace InfinityLauncher
 {
@@ -13,11 +12,6 @@ namespace InfinityLauncher
     /// </summary>
     public partial class App : Application
     {
-        public static LauncherCore Core = LauncherCore.Create(
-            new LauncherCoreCreationOption(
-                gameRootPath: AppDomain.CurrentDomain.BaseDirectory + @"\client",
-                javaPath: Config.SJavaPath(null),
-                versionLocator: null
-            ));
+        
     }
 }
