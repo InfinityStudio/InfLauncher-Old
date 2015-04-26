@@ -13,6 +13,11 @@ namespace InfinityLauncher
     /// </summary>
     public partial class App : Application
     {
-        public static LauncherCore Core = LauncherCore.Create();
+        public static LauncherCore Core = LauncherCore.Create(
+            new LauncherCoreCreationOption(
+                gameRootPath: AppDomain.CurrentDomain.BaseDirectory + @"\client",
+                javaPath: Config.SJavaPath(null),
+                versionLocator: null
+            ));
     }
 }
